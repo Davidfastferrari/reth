@@ -200,10 +200,7 @@ impl<T> ExecutionOutcome<T> {
     pub fn hash_state_slow<KH: KeyHasher>(&self) -> HashedPostState {
           let standard_state: StdHashMap<Address, BundleAccount> =
          self.bundle.state.iter().map(|(k, v)| (*k, v.clone())).collect();
-
-     HashedPostState::from_bundle_state::<KH>(standard_state.into_par_iter())
-
-    }
+      }
 
     /// Transform block number to the index of block.
     pub fn block_number_to_index(&self, block_number: BlockNumber) -> Option<usize> {
