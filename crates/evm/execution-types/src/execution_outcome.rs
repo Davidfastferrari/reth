@@ -197,7 +197,10 @@ impl<T> ExecutionOutcome<T> {
     /// Returns [`HashedPostState`] for this execution outcome.
     /// See [`HashedPostState::from_bundle_state`] for more info.
     pub fn hash_state_slow<KH: KeyHasher>(&self) -> HashedPostState {
-        HashedPostState::from_bundle_state::<KH>(&self.bundle.state)
+       let standard_state = std::collections::HashMap::from_iter(
+    self.bundle.state.iter().map(|(k, v)| (k.clone(), v.clone()))
+      );
+   HashedPostState::from_bundle_state::<KH>(&standard_state)
     }
 
     /// Transform block number to the index of block.
